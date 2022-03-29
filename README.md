@@ -10,7 +10,7 @@ Asi es como se ve la pagina de inicio:
 
 Para usarlo:
 1. Tenes que tener instalado python y django.
-2. Tenes que abrir la terminal en la carpeta VetProject
+2. Tenes que abrir la terminal en la carpeta VetPorjoect
 3. Ejecutar en la terminal el comando "python manage.py runserver"
 4. Abrir la pagina web http://localhost:8000/veterinaria/
 5. Ya la podes usar la pagina.
