@@ -16,7 +16,3 @@ Asi es como se ve la pagina de inicio:
 
 
 
-
-Esta es la seccion empleados:
-podes ir a buscar empleado, podes cargar uno y mas abajo tenes un tabla que te muestra todos los empleados.
-![image](https://user-images.githubusercontent.com/99926988/160721969-07a04c2d-84b5-40e8-8e4b-33e9d3d1b173.png)
