@@ -1,0 +1,90 @@
+{% extends 'veterinaria/padre.html' %}
+
+
+{% block main_content %}
+
+<!-- Para ir a buscar empleado -->
+
+</div>
+<div class="col-sm-2 offset-md-5 mt-4">
+    <div class="card">
+      <div class="card-body">
+         <center><h5 class="card-title">Para buscar empleado</h5>
+       <a href="../buscarEmpleado" class="btn btn-primary">Clickea aca!</a></center>
+      </div>
+    </div>
+</div>
+
+
+<!-- Para llenar Fomrulario -->
+<div class="container mt-5" style='text-align:center' >
+    {% if formulario.errors %}
+    <p style="color: red"> Hay problemas con los datos cargados</p>
+    {% endif %}
+        
+
+    <form action="/veterinaria/empleados/" method="POST" class="form-group " >
+        {% csrf_token %}
+        <h4>Agregar empleado</h4>
+        <table class="table">
+            {{formulario.as_table}}
+        </table>
+
+        <input type="submit" value="Cargar empleado" class="btn btn-primary">
+    </form>
+
+</div>
+<form action="/veterinaria/empleados" method="get"></form>
+<input type="button" action= value="Cargar empleado">
+
+
+
+
+
+
+<!-- Tabla de empleados -->
+<div class="container mt-5">
+    <table class="table" center>
+        <thead >
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Telefono</th>
+                <th>Cargo</th>
+                
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+                {% for empleado in empleados %}
+                <tr>
+                <td>{{empleado.nombre}}</td>
+                <td>{{empleado.apellido}}</td>
+                <td>{{empleado.dni}}</td>
+                <td>{{empleado.telefono}}</td>
+                <td>{{empleado.cargo}}</td
+                <td>{{empleado.email}}</td
+                </tr> 
+                {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+
+<br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+

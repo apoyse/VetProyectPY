@@ -1,0 +1,71 @@
+{% extends 'veterinaria/padre.html' %}
+{% block content %}
+    
+
+<div class="col-md-5 offset-md-3" >
+    <form action="/veterinaria/buscarProducto" method="GET" class="card card-body p-5 " style="background-color: rgb(13, 64, 231);">
+       
+            <h1 style="width: auto; color: black;" ><center>Buscar Producto</center></h1>
+            <input type="id" name ='id' id="id" placeholder="id del producto" >    
+            <input type="submit" value="buscar">   
+
+
+
+   
+    </form> 
+    {% if error %}
+    <div class="alert alert-danger">
+        {{error}}
+     
+    {% endif %}
+
+    {% if producto %}
+    <div class="alert alert-success">
+        
+    <div >
+        <center>
+            <h2 > Producto encontrado:</h2>
+        </center>
+            <div class="container mt5" style="background-color: rgb(218, 247, 229);" mt-5>
+                <table class='table' center>
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Id</th>
+                        
+                    </tr>
+                </thead>
+                    
+                <tbody>
+                
+            
+                            
+                        <tr>
+                                
+                            <td>{{producto.nombre}}</td>
+                            <td>{{producto.precio}}</td>
+                            <td>{{producto.stock}}</td>
+                            <td>{{producto.id}}</td>
+                           
+                                    
+                        </tr>
+                            
+            
+            
+            
+                </tbody>
+            
+                </table>
+            
+            
+            
+            </div>
+    </div>
+    
+    {% endif %}
+
+
+
+{% endblock %}

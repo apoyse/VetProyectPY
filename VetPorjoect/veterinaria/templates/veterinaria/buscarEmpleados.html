@@ -1,0 +1,71 @@
+{% extends 'veterinaria/padre.html' %}
+{% block content %}
+    
+
+<div class="col-md-5 offset-md-3" >
+    <form action="/veterinaria/buscarEmpleado" method="GET" class="card card-body p-5 " style="background-color: rgb(13, 64, 231);">
+       
+            <h1 style="width: auto; color: black;" ><center>Buscar Empleado</center></h1>
+            <input type="dni" name ='dni' id="dni" placeholder="Dni" >    
+            <input type="submit" value="buscar">   
+
+
+
+   
+    </form> 
+    {% if error %}
+    <div class="alert alert-danger">
+        {{error}}
+     
+    {% endif %}
+
+    {% if empleado %}
+    <div class="alert alert-success">
+        
+    <div >
+        <center>
+            <h2 > Empleado encontrado:</h2>
+        </center>
+            <div class="container mt5" style="background-color: rgb(218, 247, 229);" mt-5>
+                <table class='table' center>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Dni</th>
+                        <th>Telefono</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+                
+            
+                            
+                        <tr>
+                                
+                            <td>{{empleado.nombre}}</td>
+                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.dni}}</td>
+                            <td>{{empleado.telefono}}</td>
+                            <td>{{empleado.cargo}}</td>
+                                    
+                        </tr>
+                            
+            
+            
+            
+                </tbody>
+            
+                </table>
+            
+            
+            
+            </div>
+    </div>
+    
+    {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'veterinaria/padre.html' %}
+
+
+{% block content %}
+
+<!-- Para llenar Fomrulario -->
+
+
+
+
+<div class="col-md-7 offset-md-2" >
+    <form action="/veterinaria/buscarPaciente" method="GET" class="card card-body p-5 " style="background-color: rgb(13, 64, 231);">
+       
+            <h1 style="width: auto; color: black;" ><center>Buscar Paciente</center></h1> 
+            <input type="nombre_mascota" name ='nombre_mascota' id="nombre_mascota" placeholder="Nombre de la mascota" >    
+            <input type="submit" value="buscar">   
+
+
+
+        
+    </form>
+    {%if error%}
+    <div class="alert alert-danger">
+        {{ error }}
+    
+    {%endif%}
+    {%if pacientes%}
+    <div class= "alert alert-succes">
+        <div class="container mt5" mt-5>
+            <table class='table'>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Dni</th>
+                    <th>Telefono</th>
+                    <th>Nombre mascota</th>
+                </tr>
+            </thead>
+                <tbody>
+            
+                    <tr>
+                        
+                        <td>{{pacientes.nombre}}</td>
+                        <td>{{pacientes.apeltddo}}</td>
+                        <td>{{pacientes.dni}}</td>
+                        <td>{{pacientes.telefono}}</td>
+                        <td>{{pacientes.nombre_mascota}}</td>
+                            
+                    </tr>
+
+            </tbody>
+
+            </table>
+
+
+
+        </div>
+
+    {%endif%}
+
+
+
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
