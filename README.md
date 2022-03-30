@@ -6,7 +6,7 @@ Es una pagina web de una veterinaria que se pueden cargar datos, mostralos y bus
 Para usarlo:
 1. Tenes que tener instalado python y django.
 2. Tenes que abrir la terminal en la carpeta VetPorjoect
-3. Ejecutar en la terminal el comando "python manage.py runserver"
+3. Ejecutar en la terminal el comando _python manage.py runserver_
 4. Abrir la pagina web _http://localhost:8000/veterinaria/_
 5. Ya la podes usar la pagina.
 
