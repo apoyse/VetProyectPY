@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <h1>Empleados trabajomdo</h1>
+
+    <ul>
+
+        {% for empleado in object_list %}
+        <li>
+            <p>Nombre: {{empleado.nombre}}</p>
+
+            <p>
+                <a href="{%url 'empleados_detail' empleado.dni%}">Ver</a>
+                <a href="{%url 'empleados_update' empleado.dni%}">Editar</a>
+                <a href="{%url 'empleados_delete' empleado.dni%}">Borrar</a>
+            </p>
+
+
+        </li>
+        {%endfor%}
+    </ul>
+</body>
+</html>
