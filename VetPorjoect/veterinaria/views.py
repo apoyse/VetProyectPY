@@ -11,6 +11,11 @@ from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
 def index(request):
     return render(request, 'veterinaria/index.html')
 
+
+def about(request):
+    titulo = "Acerca de mi"
+    return render(request , 'veterinaria/about.html', {'titulo' : titulo})
+
 def empleados(request):
     titulo = 'Empleados'
     empleados= Empleados.objects.all()
