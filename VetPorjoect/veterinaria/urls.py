@@ -28,6 +28,6 @@ urlpatterns = [
     path('empleados/delete/<pk>/', EmpleadosDelete.as_view(), name='empleados_delete'),
     path('empleados/<pk>/' ,EmpleadosDetail.as_view(), name='empleados_detail'),
 
-
+    path('pages/', pages, name='pages'),
 ]
    

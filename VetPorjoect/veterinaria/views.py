@@ -95,6 +95,12 @@ def contacto(request):
         return render(request, 'veterinaria/contacto.html',{"titulo":titulo ,"formulario":formulario,'contactos':contactos}) 
 
 
+def pages (request,):
+    titulo = 'Paginas'
+    return render(request, 'veterinaria/pages.html', {'titulo':titulo})
+
+
+
 # ======================================================================================================
 # ======================================================================================================
 
