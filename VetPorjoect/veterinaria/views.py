@@ -6,6 +6,32 @@ from veterinaria.fomrs import *
 #Vistas Basasadas en clase
 from django.views.generic import ListView #clase basada en vistas
 from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login , logout , authenticate
+
+
+
+
+
+
+def login_request(request):
+    
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contra = form.cleaned_data.get('password')
+
+
+            user = authenticate(username = usuario, password = contra)
+
+        if user is not None:
+            login(request, user)
+            return render (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}'})
+
+        else:
+            return render(request, )
+
 
 
 def index(request):

@@ -29,5 +29,7 @@ urlpatterns = [
     path('empleados/<pk>/' ,EmpleadosDetail.as_view(), name='empleados_detail'),
 
     path('pages/', pages, name='pages'),
+
+    path('login', login, name='login'),
 ]
    
