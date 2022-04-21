@@ -1,8 +1,10 @@
-{% extends 'veterinaria/padre.html' %}
-{% block content %}
-
-
 <body>
+
+
+
+
+
+
     <form action="" method='POST'>
         {% csrf_token %}
         {{form.as_p}}
@@ -10,4 +12,20 @@
 
         <button type='submit'>Iniciar Secion</button>
     </form>
+
+    <div> 
+        <p>Si no tenes cuenta, <a href="/registro"> registrate</a></p>
+    </div>
+
+
+    {% if errors %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {% for error in errors %}
+            {{error}}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 </body>
+
