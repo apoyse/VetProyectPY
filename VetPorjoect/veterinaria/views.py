@@ -1,3 +1,4 @@
+from turtle import title
 from django.shortcuts import redirect, render, HttpResponse
 from django.shortcuts import render
 from veterinaria.models import *
@@ -281,7 +282,7 @@ def login_request(request):
                 login(request, user)
                 imagen= avatar(request)
                 # dict_ctx = {'title':'inicio' , 'page': usuario}
-                return render (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}', 'imagen': imagen})
+                return redirect (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}', 'imagen': imagen})
 
             else:
                 return render(request,'veterinaria/index.html' , {'mensaje':'Usuario o contraseña incorrectos'})
@@ -320,7 +321,8 @@ def register_request(request):
 
 @login_required()
 def actualizar_usuario(request):
-    
+    imagen = avatar(request)
+    titulo = "Actualizar Usuario"
     usuario = request.user
 
     if request.method == "POST":
@@ -340,11 +342,11 @@ def actualizar_usuario(request):
             return redirect("Inicio")
         else:
             formulario = UsuarioEditForm(initial={"email": usuario.email})  
-            return render(request,  "veterinaria/editar_usuario.html", {"form": formulario, "errors": ["Datos invalidos"]})
+            return render(request,  "veterinaria/editar_usuario.html", {"form": formulario, "errors": ["Datos invalidos"] , 'imagen': imagen, 'titulo': titulo})
 
     else:
         formulario = UsuarioEditForm(initial={"email": usuario.email})  
-        return render(request,  "veterinaria/editar_usuario.html", {"form": formulario})
+        return render(request,  "veterinaria/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
 
 
 @login_required()

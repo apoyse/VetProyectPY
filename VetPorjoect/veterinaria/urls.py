@@ -30,13 +30,13 @@ urlpatterns = [
 
     path('pages/', pages, name='pages'),
 
-    path('login/', login_request, name='login'),
-    path('logout/', LogoutView.as_view(template_name="veterinaria/logout.html"), name="logout"),
-    path('registro/', register_request, name='register'),
+    path('account/login/', login_request, name='login'),
+    path('account/logout/', LogoutView.as_view(template_name="veterinaria/logout.html"), name="logout"),
+    path('account/registro/', register_request, name='register'),
 
 
-    path("actualizar_usuario/", actualizar_usuario, name="EditarUsuario"),
+    path("account/perfil/", actualizar_usuario, name="EditarUsuario"),
 
-    path("cargar_imagen/", cargar_imagen, name="CargarImagen")
+    path("account/cargar_imagen/", cargar_imagen, name="CargarImagen")
 ]
    

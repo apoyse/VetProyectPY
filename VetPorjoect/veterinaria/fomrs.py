@@ -1,6 +1,5 @@
 import email
 from django import forms
-import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 class EmpleadosFormulario(forms.Form):
