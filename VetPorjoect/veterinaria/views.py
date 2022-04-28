@@ -1,4 +1,4 @@
-from turtle import title
+
 from django.shortcuts import redirect, render, HttpResponse
 from django.shortcuts import render
 from veterinaria.models import *
@@ -333,6 +333,7 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 
 #             user = authenticate(username = usuario, password = contra)
 
+<<<<<<< HEAD
 #             if user is not None:
 #                 login(request, user)
 #                 imagen= avatar(request)
@@ -348,6 +349,23 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 #             'errors': 'Revise los datos'
 #              }
 #             return render(request, 'veterinaria/index.html', dict_ctx)  
+=======
+            if user is not None:
+                login(request, user)
+                imagen= avatar(request)
+                # dict_ctx = {'title':'inicio' , 'page': usuario}
+                return render (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}', 'imagen': imagen})
+
+            else:
+                return render(request,'veterinaria/index.html' , {'mensaje':'Usuario o contraseña incorrectos'})
+        else:
+            dict_ctx = {
+            'title':'inicio',
+            'page': 'anonymous',
+            'errors': 'Revise los datos'
+             }
+            return render(request, 'veterinaria/index.html', dict_ctx)  
+>>>>>>> 69b9bf8d04c5157a30d8755ee36254569f8b8a19
     
    
 #     form = AuthenticationForm()
@@ -365,6 +383,7 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 #             username = form.cleaned_data['username']
 #             form.save()
 
+<<<<<<< HEAD
 #             return redirect('index')
 #         else:
 #             dict_ctx = {
@@ -375,6 +394,18 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 #             return render(request, "veterinaria/index.html", dict_ctx)
 #     else:
 #         form = UserRegisterForm()
+=======
+            return redirect('index')
+        else:
+            dict_ctx = {
+                "title": "Inicio",
+                "page": "anonymous",
+                "errors": ["No paso las validaciones"] 
+                }
+            return render(request, "veterinaria/index.html", dict_ctx)
+    else:
+        form = UserRegisterForm()
+>>>>>>> 69b9bf8d04c5157a30d8755ee36254569f8b8a19
     
 #     return render(request, 'veterinaria/registro.html', { 'form':form})
 
@@ -402,6 +433,7 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 
 #             usuario.save()
 
+<<<<<<< HEAD
 #             return redirect("Inicio")
 #         else:
 #             formulario = UsuarioEditForm(initial={"email": usuario.email})  
@@ -412,6 +444,18 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 #                 'titulo': titulo
 #             }
 #             return render(request,  "veterinaria/editar_usuario.html",contx )
+=======
+            return redirect("Inicio")
+        else:
+            formulario = UsuarioEditForm(initial={"email": usuario.email})  
+            contx = {
+                "form": formulario,
+                "errors": ["Datos invalidos"] ,
+                'imagen': imagen,
+                'titulo': titulo
+            }
+            return render(request,  "veterinaria/editar_usuario.html",contx )
+>>>>>>> 69b9bf8d04c5157a30d8755ee36254569f8b8a19
 
 #     else:
 #         formulario = UsuarioEditForm(initial={"email": usuario.email})  
