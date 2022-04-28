@@ -1,6 +1,8 @@
-from django.urls import path
+from django.urls import path , include
 from veterinaria.views import *
 from django.contrib.auth.views import LogoutView
+from usuario.views import *
+from usuario.urls import *
 
 
 urlpatterns = [
@@ -12,10 +14,10 @@ urlpatterns = [
     path('empleados/', empleados, name='empleados'),
     path('contacto/', contacto, name='contacto'),
     path('about/', about, name='about'),
-    path('buscarPaciente/', buscarPaciente, name='buscarPaciente'),
-   
-    path('buscarProducto/', buscarProducto, name='buscarProducto'),
-    path('buscarEmpleado/', buscarEmpleado, name='buscarEmpleado'),
+
+    path('veterinaria/buscarPaciente/', buscarPaciente, name='buscarPaciente'),
+    path('veterinaria/buscarProducto/', buscarProducto, name='buscarProducto'),
+    path('veterinaria/buscarEmpleado/', buscarEmpleado, name='buscarEmpleado'),
 
     path('empleados/<dni_id>/update', update_empleado, name='update_empleado'),
     path('empleados/<dni_id>/delete', borrar_empleado, name='borrar_empleado'),
@@ -28,15 +30,13 @@ urlpatterns = [
     path('empleados/delete/<pk>/', EmpleadosDelete.as_view(), name='empleados_delete'),
     path('empleados/<pk>/' ,EmpleadosDetail.as_view(), name='empleados_detail'),
 
-    path('pages/', pages, name='pages'),
+    path('pages/', Pagina.as_view(), name='pages'),
+    path('pages/<slug:slug>/', Pagina.as_view(), name='pages'),
 
-    path('account/login/', login_request, name='login'),
-    path('account/logout/', LogoutView.as_view(template_name="veterinaria/logout.html"), name="logout"),
-    path('account/registro/', register_request, name='register'),
+    path('account/', include('usuario.urls')),
+
+    path('messages/', include('direct.urls')),
 
 
-    path("account/perfil/", actualizar_usuario, name="EditarUsuario"),
-
-    path("account/cargar_imagen/", cargar_imagen, name="CargarImagen")
 ]
    

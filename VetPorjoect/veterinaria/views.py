@@ -16,6 +16,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
 
+from usuario.views import *
+
 
 
 
@@ -30,7 +32,11 @@ def index(request):
 def about(request):
     imagen = avatar(request)
     titulo = "Acerca de mi"
-    return render(request , 'veterinaria/about.html', {'titulo' : titulo , 'imagen':imagen})
+    contx = {
+        'titulo' : titulo,
+        'imagen':imagen
+    }
+    return render(request , 'veterinaria/about.html', contx)
 
 
 @login_required
@@ -43,12 +49,23 @@ def empleados(request ):
         
         if formulario.is_valid():
             data = formulario.cleaned_data
-            empleado= Empleados(data['nombre'],data['apellido'],data['dni'],data['telefono'],data['cargo'],data['email'])
-            
+            empleado= Empleados(data['nombre'],
+            data['apellido'],
+            data['dni'],
+            data['telefono'],
+            data['cargo'],
+            data['email']
+            )
+        
             empleado.save()
 
             formulario = EmpleadosFormulario()
-            return render(request, 'veterinaria/empleados.html', {'formulario':formulario,'empleados':empleados , 'imagen':imagen})
+            contx = {
+            'formulario':formulario,
+            'empleados':empleados ,
+            'imagen':imagen
+            }
+            return render(request, 'veterinaria/empleados.html', contx)
             
     else:
         formulario = EmpleadosFormulario()
@@ -70,12 +87,22 @@ def pacientes(request):
             paciente.save()
 
             formulario = PacientesFormulario()
-            return render(request, 'veterinaria/pacientes.html', {'titulo':titulo,'formulario':formulario,'pacientes':pacientes,'imagen':imagen})
+            contx ={
+                'titulo':titulo,
+                'formulario':formulario,
+                'pacientes':pacientes,
+                'imagen':imagen
+            }
+            return render(request, 'veterinaria/pacientes.html', contx)
 
     else:
         formulario = PacientesFormulario()
-
-        return render(request, 'veterinaria/pacientes.html', {'titulo':titulo,'formulario':formulario,'pacientes':pacientes,'imagen':imagen})
+        contx = {'titulo':titulo,
+        'formulario':formulario,
+        'pacientes':pacientes,
+        'imagen':imagen
+        }
+        return render(request, 'veterinaria/pacientes.html', contx )
 @login_required()
 def productos(request):
     imagen = avatar(request)
@@ -91,13 +118,25 @@ def productos(request):
             producto.save()
 
             formulario = ProductosFormulario()
-            return render(request, 'veterinaria/productos.html', {'titulo':titulo,'formulario':formulario,'productos':productos,'imagen':imagen})
+            contx ={
+                'titulo':titulo,
+                'formulario':formulario,
+                'productos':productos,
+                'imagen':imagen
+            }
+            return render(request, 'veterinaria/productos.html', contx)
     else:
         formulario = ProductosFormulario()
-        return render(request, 'veterinaria/productos.html',{'titulo':titulo,'formulario':formulario,'productos':productos,'imagen':imagen})
+        contx = {
+            'titulo':titulo,
+            'formulario':formulario,
+            'productos':productos,
+            'imagen':imagen
+        }
+        return render(request, 'veterinaria/productos.html',contx)
 
 
-
+@login_required
 def contacto(request):
     imagen = avatar(request)
     titulo = 'Contacto'
@@ -110,17 +149,33 @@ def contacto(request):
             contactos = Contacto(data['nombre'],data['apellido'],data['email'],data['telefono'],data['mensaje'])
             contactos.save()
             formulario = ContactoFormulario()
-            return render(request, 'veterinaria/contacto.html', {'titulo':titulo,'formulario':formulario,'contactos':contactos,'imagen':imagen})
+            contx = {
+                'titulo':titulo,
+                'formulario':formulario,
+                'contactos':contactos,
+                'imagen':imagen
+            }
+            return render(request, 'veterinaria/contacto.html', contx)
     else:
         formulario = ContactoFormulario()
-        
-        return render(request, 'veterinaria/contacto.html',{"titulo":titulo ,"formulario":formulario,'contactos':contactos,'imagen':imagen}) 
+        contx = {
+            "titulo":titulo ,
+            "formulario":formulario,
+            'contactos':contactos,
+            'imagen':imagen
+            }
+        return render(request, 'veterinaria/contacto.html',contx) 
 
 @login_required()
 def pages (request,):
     imagen = avatar(request)
-    titulo = 'Paginas'
-    return render(request, 'veterinaria/pages.html', {'titulo':titulo})
+    titulo : 'Paginas'
+    contx = {
+        'titulo':titulo,
+        'imagen':imagen
+
+    }
+    return render(request, 'veterinaria/pages.html', contx)
 
 
 
@@ -138,12 +193,12 @@ def buscarEmpleado(request):
         try:
             empleado = Empleados.objects.filter(dni=data)   #filtro al empleado por el dni
             # print(empleado)
-            return render (request, 'veterinaria/buscarEmpleados.html', {'empleado':empleado[0], "id":data})   #renderizo y mando el empleado que tiene que ser [0] poruqe manda una lista
+            return render (request, 'veterinaria/buscar/buscarEmpleados.html', {'empleado':empleado[0], "id":data})   #renderizo y mando el empleado que tiene que ser [0] poruqe manda una lista
         except Exception as exc:
             print(exc)
             error = 'No se encontro el empleado'
 
-    return render(request, 'veterinaria/buscarEmpleados.html', {'error':error})
+    return render(request, 'veterinaria/buscar/buscarEmpleados.html', {'error':error})
 
 
 
@@ -160,12 +215,12 @@ def buscarPaciente(request):
         try:
             pacientes = Pacientes.objects.filter(nombre_mascota__icontains=data)   #filtro al empleado por el dni
             print(pacientes)
-            return render (request, 'veterinaria/buscarPaciente.html', {'pacientes':pacientes[0], "id":data})   #renderizo y mando el empleado que tiene que ser [0] poruqe manda una lista
+            return render (request, 'veterinaria/buscar/buscarPaciente.html', {'pacientes':pacientes[0], "id":data , 'imagen':imagen})   #renderizo y mando el empleado que tiene que ser [0] poruqe manda una lista
         except Exception as exc:
             print(exc)
             error = 'No se encontro el paciente'
 
-    return render(request, 'veterinaria/BuscarPaciente.html', {'error':error})
+    return render(request, 'veterinaria/buscar/BuscarPaciente.html', {'error':error , 'imagen':imagen})
 
 @login_required()
 def buscarProducto(request):
@@ -177,13 +232,13 @@ def buscarProducto(request):
         try:
             producto = Productos.objects.filter(id__icontains=data)
             print(producto)
-            return render (request, 'veterinaria/buscarProducto.html', {'producto':producto[0], "id":data})
+            return render (request, 'veterinaria/buscar/buscarProducto.html', {'producto':producto[0], "id":data ,'imagen':imagen})
 
         except Exception as exc:
             print(exc)
             error = 'No se encontro el producto'
 
-    return render(request, 'veterinaria/buscarProducto.html', {'error':error})
+    return render(request, 'veterinaria/buscar/buscarProducto.html', {'error':error , 'imagen':imagen})
 
 
 # -----------------------------------------------------------------------------------------------------
@@ -219,7 +274,7 @@ def update_empleado(request,dni_id):
                 formulario= EmpleadosFormulario(initial={"nombre":empleado.nombre,"apellido":empleado.apellido,"dni":empleado.dni,"telefono":empleado.telefono,"cargo":empleado.cargo,"email":empleado.email})
                 return render(request, 'veterinaria/update_empleado.html', {'formulario':formulario})
 
-        return render(request, 'veterinaria/update_empleado.html', {'formulario':formulario})
+        return render(request, 'veterinaria/update_empleado.html', {'formulario':formulario })
 
 
 
@@ -228,7 +283,7 @@ def update_empleado(request,dni_id):
 
 class EmpleadosList(ListView , LoginRequiredMixin):
     model = Empleados
-    template_name = 'veterinaria/empleados_lista.html'
+    template_name = 'veterinaria/empleados_funciones/empleados_list.html'
     context_object_name = 'empleados'
 
 
@@ -236,27 +291,27 @@ class EmpleadosCreate(CreateView,LoginRequiredMixin):
     model = Empleados
    
     
-    success_url = "../list"
+    success_url = "{% url 'empleados_lista' %}"
     fields = ['nombre', 'apellido', 'dni', 'telefono', 'cargo', 'email']
 
 
 
 class EmpleadosUpdate(UpdateView,LoginRequiredMixin):      
     model = Empleados
-    
+    template_name = 'veterinaria/empleados_funciones/empleados_form.html'
     success_url = "../../list"
     fields = ['nombre', 'apellido', 'dni', 'telefono', 'cargo', 'email']
   
 
 class EmpleadosDelete(DeleteView, LoginRequiredMixin):
     model = Empleados
-    template_name = 'veterinaria/empleadoconfirm_delete.html'
-    success_url = "/veterinaria/empleados/list"
+    template_name = 'veterinaria/empleados_funciones/empleadoconfirm_delete.html'
+    success_url = "../../list"
 
 
 class EmpleadosDetail(DetailView, LoginRequiredMixin):
     model = Empleados
-    template_name = 'veterinaria/empleado_detalle.html'
+    template_name = 'veterinaria/empleados_funciones/empleado_detalle.html'
     context_object_name = 'empleado'
  
 
@@ -267,128 +322,158 @@ class EmpleadosDetail(DetailView, LoginRequiredMixin):
 
 
 
-def login_request(request):
+# def login_request(request):
     
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data = request.POST)
-        if form.is_valid():
-            usuario = form.cleaned_data.get('username')
-            contra = form.cleaned_data.get('password')
+#     if request.method == 'POST':
+#         form = AuthenticationForm(request, data = request.POST)
+#         if form.is_valid():
+#             usuario = form.cleaned_data.get('username')
+#             contra = form.cleaned_data.get('password')
 
 
-            user = authenticate(username = usuario, password = contra)
+#             user = authenticate(username = usuario, password = contra)
 
-            if user is not None:
-                login(request, user)
-                imagen= avatar(request)
-                # dict_ctx = {'title':'inicio' , 'page': usuario}
-                return redirect (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}', 'imagen': imagen})
+#             if user is not None:
+#                 login(request, user)
+#                 imagen= avatar(request)
+#                 # dict_ctx = {'title':'inicio' , 'page': usuario}
+#                 return render (request, 'veterinaria/index.html' , {'mensaje':f'Bienvenido {usuario}', 'imagen': imagen})
 
-            else:
-                return render(request,'veterinaria/index.html' , {'mensaje':'Usuario o contraseña incorrectos'})
-        else:
-            dict_ctx = {'title':'inicio' , 'page': 'anonymous' , 'errors': 'Revise los datos'}
-            return render(request, 'veterinaria/index.html', dict_ctx)  
+#             else:
+#                 return render(request,'veterinaria/index.html' , {'mensaje':'Usuario o contraseña incorrectos'})
+#         else:
+#             dict_ctx = {
+#             'title':'inicio',
+#             'page': 'anonymous',
+#             'errors': 'Revise los datos'
+#              }
+#             return render(request, 'veterinaria/index.html', dict_ctx)  
     
    
-    form = AuthenticationForm()
-    return render(request, 'veterinaria/login.html', {'form':form})
+#     form = AuthenticationForm()
+#     return render(request, 'veterinaria/login.html', {'form':form})
 
 
 
-def register_request(request):
+# def register_request(request):
    
-    if request.method == 'POST':
+#     if request.method == 'POST':
 
-        form = UserRegisterForm(request.POST)
+#         form = UserRegisterForm(request.POST)
 
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            form.save()
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             form.save()
 
-            return redirect('index')
-        else:
-            dict_ctx = {"title": "Inicio", "page": "anonymous", "errors": ["No paso las validaciones"] }
-            return render(request, "veterinaria/index.html", dict_ctx)
-    else:
-        form = UserRegisterForm()
+#             return redirect('index')
+#         else:
+#             dict_ctx = {
+#                 "title": "Inicio",
+#                 "page": "anonymous",
+#                 "errors": ["No paso las validaciones"] 
+#                 }
+#             return render(request, "veterinaria/index.html", dict_ctx)
+#     else:
+#         form = UserRegisterForm()
     
-    return render(request, 'veterinaria/registro.html', { 'form':form})
+#     return render(request, 'veterinaria/registro.html', { 'form':form})
 
 
 
 
 
-@login_required()
-def actualizar_usuario(request):
-    imagen = avatar(request)
-    titulo = "Actualizar Usuario"
-    usuario = request.user
+# @login_required()
+# def actualizar_usuario(request):
+#     imagen = avatar(request)
+#     titulo = "Actualizar Usuario"
+#     usuario = request.user
 
-    if request.method == "POST":
-        formulario = UsuarioEditForm(request.POST)
+#     if request.method == "POST":
+#         formulario = UsuarioEditForm(request.POST)
 
-        if formulario.is_valid():
-            data = formulario.cleaned_data
+#         if formulario.is_valid():
+#             data = formulario.cleaned_data
 
-            usuario.email = data["email"]
-            usuario.password1 = data["password1"]
-            usuario.password2 = data["password2"]
-            usuario.last_name = data["last_name"]
-            usuario.first_name = data["first_name"]
+#             usuario.email = data["email"]
+#             usuario.password1 = data["password1"]
+#             usuario.password2 = data["password2"]
+#             usuario.last_name = data["last_name"]
+#             usuario.first_name = data["first_name"]
 
-            usuario.save()
+#             usuario.save()
 
-            return redirect("Inicio")
-        else:
-            formulario = UsuarioEditForm(initial={"email": usuario.email})  
-            return render(request,  "veterinaria/editar_usuario.html", {"form": formulario, "errors": ["Datos invalidos"] , 'imagen': imagen, 'titulo': titulo})
+#             return redirect("Inicio")
+#         else:
+#             formulario = UsuarioEditForm(initial={"email": usuario.email})  
+#             contx = {
+#                 "form": formulario,
+#                 "errors": ["Datos invalidos"] ,
+#                 'imagen': imagen,
+#                 'titulo': titulo
+#             }
+#             return render(request,  "veterinaria/editar_usuario.html",contx )
 
-    else:
-        formulario = UsuarioEditForm(initial={"email": usuario.email})  
-        return render(request,  "veterinaria/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
+#     else:
+#         formulario = UsuarioEditForm(initial={"email": usuario.email})  
+#         return render(request,  "veterinaria/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
 
 
-@login_required()
-def cargar_imagen(request):
+# @login_required()
+# def cargar_imagen(request):
 
-    if request.method == "POST":
+#     if request.method == "POST":
 
-        formulario = AvatarFormulario(request.POST,request.FILES)
+#         formulario = AvatarFormulario(request.POST,request.FILES)
 
-        if formulario.is_valid():
+#         if formulario.is_valid():
 
-            usuario = request.user
+#             usuario = request.user
 
-            avatar = Avatar.objects.filter(user=usuario)
+#             avatar = Avatar.objects.filter(user=usuario)
 
-            if len(avatar) > 0:
-                avatar = avatar[0]
-                avatar.imagen = formulario.cleaned_data["imagen"]
-                avatar.save()
+#             if len(avatar) > 0:
+#                 avatar = avatar[0]
+#                 avatar.imagen = formulario.cleaned_data["imagen"]
+#                 avatar.save()
 
-            else:
-                avatar = Avatar(user=usuario, imagen=formulario.cleaned_data["imagen"])
-                avatar.save()
+#             else:
+#                 avatar = Avatar(user=usuario, imagen=formulario.cleaned_data["imagen"])
+#                 avatar.save()
             
-        return redirect("index")
-    else:
+#         return redirect("index")
+#     else:
 
-        formulario = AvatarFormulario()
-        return render(request, "veterinaria/cargar_imagen.html", {"form": formulario})
-
-
+#         formulario = AvatarFormulario()
+#         return render(request, "veterinaria/cargar_imagen.html", {"form": formulario})
 
 
-def avatar(request):
 
-    if request.user.username:
-        avatar = Avatar.objects.filter(user = request.user)
-        if len(avatar) > 0:
-            imagen = avatar[0].imagen.url
+
+# def avatar(request):
+
+#     if request.user.username:
+#         avatar = Avatar.objects.filter(user = request.user)
+#         if len(avatar) > 0:
+#             imagen = avatar[0].imagen.url
             
-        else:
-            imagen = '/media/avatar/predeterminada.png'
-    else:
-        imagen = '/media/avatar/predeterminada.png'
-    return (imagen)
+#         else:
+#             imagen = '/media/avatar/predeterminada.png'
+#     else:
+#         imagen = '/media/avatar/predeterminada.png'
+#     return (imagen)
+
+
+
+
+class Pagina(ListView):
+
+    def get(self,request,*args,**kwargs):
+        pages = list(Page.objects.all().values_list('id', flat=True))
+
+        contexto = { 
+        'pages': pages
+    }
+
+       
+
+        return render(request,'pages.html',contexto)

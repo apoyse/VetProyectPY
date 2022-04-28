@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+
 class Empleados(models.Model):
     nombre=models.CharField(max_length=50)
     apellido=models.CharField(max_length=50)
@@ -46,8 +47,14 @@ class Contacto(models.Model):
     def __str__(self):
         return f" Contacto de {self.nombre} {self.apellido} "
 
-class Avatar(models.Model):
-    user  = models.ForeignKey(User , on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='avatar/' , null=True , blank=True)
+
+class Page(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField(max_length=50)
+    contenido = models.TextField()
+    slug = models.CharField('Slug', max_length = 150, unique = True)
+    class Meta:
+        verbose_name = 'Pagina'
+        verbose_name_plural = 'Paginas'
     def __str__(self):
-        return f"{self.user.username} {self.imagen}" 
+        return self.titulo
