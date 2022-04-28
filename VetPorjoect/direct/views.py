@@ -34,6 +34,7 @@ def Inbox(request):
 		'messages': messages,
 		'active_direct': active_direct,
 		'imagen': imagen,
+		'titulo': 'Mensajes'
 		}
 
 	return render(request, 'direct/direct.html', context)
@@ -55,11 +56,12 @@ def UserSearch(request):
 
 		context = {
 				'users': users_paginator,
+				'titulo': 'mensajes',
 			}
 	
-	template = loader.get_template('direct/search_user.html')
+	# template = loader.get_template('direct/search_user.html')
 	
-	return HttpResponse(template.render(context, request))
+	return render(request,'direct/search_user.html',context)
 
 @login_required
 def Directs(request, username):
@@ -78,6 +80,7 @@ def Directs(request, username):
 		'messages': messages,
 		'active_direct':active_direct,
 		'imagen': imagen,
+		'titulo': 'Mensajes'
 	}
 
 	template = loader.get_template('direct/direct.html')
@@ -91,6 +94,7 @@ def NewConversation(request, username):
 	body = ''
 	try:
 		to_user = User.objects.get(username=username)
+		
 	except Exception as e:
 		return redirect('usersearch')
 	if from_user != to_user:
@@ -99,7 +103,7 @@ def NewConversation(request, username):
 
 @login_required
 def SendDirect(request):
-	imagen = avatar(request)
+	
 	from_user = request.user
 	to_user_username = request.POST.get('to_user')
 	body = request.POST.get('body')
@@ -107,7 +111,7 @@ def SendDirect(request):
 	if request.method == 'POST':
 		to_user = User.objects.get(username=to_user_username)
 		Message.send_message(from_user, to_user, body)
-		return redirect('inbox',{'imagen':imagen})
+		return redirect('inbox')
 	else:
 		HttpResponseBadRequest()
 

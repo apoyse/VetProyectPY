@@ -29,7 +29,7 @@ def login_request(request):
                 return render(request,'veterinaria/index.html' , {'mensaje':'Usuario o contraseña incorrectos'})
         else:
             dict_ctx = {
-            'title':'inicio',
+            'titulo':'inicio',
             'page': 'anonymous',
             'errors': 'Revise los datos'
              }
@@ -88,7 +88,7 @@ def actualizar_usuario(request):
 
             usuario.save()
 
-            return redirect("Inicio")
+            return redirect("index")
         else:
             formulario = UsuarioEditForm(initial={"email": usuario.email})  
             contx = {
@@ -107,8 +107,10 @@ def actualizar_usuario(request):
 @login_required()
 def cargar_imagen(request):
 
-    if request.method == "POST":
+    
 
+    if request.method == "POST":
+        
         formulario = AvatarFormulario(request.POST,request.FILES)
 
         if formulario.is_valid():
@@ -128,9 +130,10 @@ def cargar_imagen(request):
             
         return redirect("index")
     else:
-
+        
         formulario = AvatarFormulario()
-        return render(request, "veterinaria/cargar_imagen.html", {"form": formulario})
+        return render(request, "veterinaria/cargar_imagen.html", {"form": formulario , 'titulo': 'Cargar Imagen'})
+
 
 
 
