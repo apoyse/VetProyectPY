@@ -7,7 +7,7 @@ Para usarlo:
 1. Tenes que tener instalado python y django.
 2. Tenes que abrir la terminal en la carpeta VetPorjoect
 3. Ejecutar en la terminal el comando _python manage.py runserver_
-4. Abrir la pagina web _http://localhost:8000
+4. Abrir la pagina web  http://localhost:8000
 5. Ya la podes usar la pagina.
 
 
