@@ -23,7 +23,7 @@
     {% endif %}
         
 
-    <form action="/veterinaria/empleados/" method="POST" class="form-group " >
+    <form action="" method="POST" class="form-group " >
         {% csrf_token %}
         <h4>Agregar empleado</h4>
         <table class="table">
@@ -70,8 +70,8 @@
                 <td>{{empleado.email}}</td>
 
                 <td>
-                    <a href="../empleados/{{empleado.dni}}/update" class="btn btn-primary">Editar</a> 
-                    <a href="../empleados/{{empleado.dni}}/delete" class="btn btn-primary">Borrar</a>
+                    <a href="http://localhost:8000/empleados/update/{{empleado.dni}}/" class="btn btn-primary">Editar</a> 
+                    <a href="http://localhost:8000/empleados/delete/{{empleado.dni}}/" class="btn btn-primary">Borrar</a>
                 </td>
            
                 </tr> 

@@ -59,7 +59,7 @@ def UserSearch(request):
 				'titulo': 'mensajes',
 			}
 	
-	# template = loader.get_template('direct/search_user.html')
+	
 	
 	return render(request,'direct/search_user.html',context)
 
@@ -115,11 +115,6 @@ def SendDirect(request):
 	else:
 		HttpResponseBadRequest()
 
-def checkDirects(request):
-	directs_count = 0
-	if request.user.is_authenticated:
-		directs_count = Message.objects.filter(user=request.user, is_read=False).count()
 
-	return {'directs_count':directs_count}
 
 

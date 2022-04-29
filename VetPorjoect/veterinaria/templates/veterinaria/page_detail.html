@@ -1,0 +1,17 @@
+{% extends 'veterinaria/padre.html' %}
+    
+{% block content %}
+
+<div class="container-sm mt-3">
+    <h1 class="text-center mt-4">Informacion de la Pagina</h1>
+    
+    <p class="text-center"> <strong>Titulo: </strong> {{page.titulo}} </p>
+    <p class="text-center"> <strong>Descripción:</strong> {{page.contenido}}</p>
+    <p class="text-center"> <strong>Enlace: </strong> {{page.slug}}</p>
+    
+    <p class="text-center" >
+        <a href="{{page.slug}}" class = "btn btn-primary">Ir al enlace</a>   <a href="{% url 'pages' %}" class = "btn btn-primary">Regresar</a>
+    </p>
+</div>
+
+{% endblock  %}

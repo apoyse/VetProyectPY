@@ -1,13 +1,12 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 
-
-from django.contrib.auth.forms import AuthenticationForm ,UserCreationForm
-from django.contrib.auth import login , authenticate 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm 
+from django.contrib.auth import login , authenticate 
 from django.contrib.auth.decorators import login_required
 from usuario.models import *
 from usuario.forms import *
-
+from django.views.generic import ListView , View
 def login_request(request):
 
     if request.method == 'POST':
@@ -37,7 +36,7 @@ def login_request(request):
     
    
     form = AuthenticationForm()
-    return render(request, 'veterinaria/login.html', {'form':form})
+    return render(request, 'user/login.html', {'form':form})
 
 
 
@@ -62,7 +61,7 @@ def register_request(request):
     else:
         form = UserRegisterForm()
     
-    return render(request, 'veterinaria/registro.html', { 'form':form})
+    return render(request, 'user/registro.html', { 'form':form})
 
 
 
@@ -97,11 +96,11 @@ def actualizar_usuario(request):
                 'imagen': imagen,
                 'titulo': titulo
             }
-            return render(request,  "veterinaria/editar_usuario.html",contx )
+            return render(request,  "user/editar_usuario.html",contx )
 
     else:
         formulario = UsuarioEditForm(initial={"email": usuario.email})  
-        return render(request,  "veterinaria/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
+        return render(request,  "user/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
 
 
 @login_required()
@@ -132,7 +131,7 @@ def cargar_imagen(request):
     else:
         
         formulario = AvatarFormulario()
-        return render(request, "veterinaria/cargar_imagen.html", {"form": formulario , 'titulo': 'Cargar Imagen'})
+        return render(request, "user/cargar_imagen.html", {"form": formulario , 'titulo': 'Cargar Imagen'})
 
 
 
@@ -151,5 +150,10 @@ def avatar(request):
         imagen = '/media/avatar/predeterminada.png'
     return (imagen)
 
+
+def get_user_profile(request,username):
+    usuario = request.user
+    
+    return render(request, 'user/perfil.html', { 'usuario':usuario, "imagen":avatar(request)})
 
 # Create your views here.

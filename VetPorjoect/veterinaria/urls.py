@@ -19,8 +19,8 @@ urlpatterns = [
     path('veterinaria/buscarProducto/', buscarProducto, name='buscarProducto'),
     path('veterinaria/buscarEmpleado/', buscarEmpleado, name='buscarEmpleado'),
 
-    path('empleados/<dni_id>/update', update_empleado, name='update_empleado'),
-    path('empleados/<dni_id>/delete', borrar_empleado, name='borrar_empleado'),
+    # path('empleados/<dni_id>/update', update_empleado, name='update_empleado'),
+    # path('empleados/<dni_id>/delete', borrar_empleado, name='borrar_empleado'),
 
 
 
@@ -31,7 +31,11 @@ urlpatterns = [
     path('empleados/<pk>/' ,EmpleadosDetail.as_view(), name='empleados_detail'),
 
     path('pages/', Pagina.as_view(), name='pages'),
-    path('pages/<slug:slug>/', Pagina.as_view(), name='pages'),
+    path('pages/create/', PageCrear.as_view(), name='page_create'),
+    path("pages/detalle/<pk>/", PageDetail.as_view(), name="page_detail"),
+    path("pages/editar/<pk>/", PageUpdate.as_view(), name="page_update"),
+    path("pages/borrar/<pk>/", PageDelete.as_view(), name="page_delete"),
+    path('/notemplate' , no_template, name='notemplate'),
 
     path('account/', include('usuario.urls')),
 

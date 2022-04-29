@@ -57,4 +57,4 @@ class Page(models.Model):
         verbose_name = 'Pagina'
         verbose_name_plural = 'Paginas'
     def __str__(self):
-        return self.titulo
+        return self.titulo 

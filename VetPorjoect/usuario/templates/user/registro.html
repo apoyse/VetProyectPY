@@ -1,5 +1,7 @@
-<title> Registro </title>
+{% extends 'veterinaria/padre.html' %}
+{% block content %}
 
+<h1>Registrate</h1>
 <body>
     <form action="" method='POST'>
         {% csrf_token %}
@@ -9,4 +11,7 @@
         <button type='submit'>Registrar</button>
     </form>
 </body>
+
+
+{% endblock content %}
 

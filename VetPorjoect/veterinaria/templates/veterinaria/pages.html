@@ -1,15 +1,31 @@
  {% extends 'veterinaria/padre.html' %}
 
 
-{% block main_content %}
 
 
-<div class="container">
-    <p>{{pages[o].titulo}}</p>  <a href="../empleados/list/"> click</a>        
-        
-        
+
+{% block content %}
+<h1 class="text-center mt-4">Paginas - <span style="color: #5a11e2; text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;">Veterinaria</span></h1>
+<center>
+<div class="container text-center m-5">
+    
+    <div class="card-columns ">
+        {% for page in object_list %}
+        <div class="card text-center p-3 m-3">
+            <div class="card-body">
+                <h5 class="card-title">{{page.titulo}}</h5>
+               <a class="card-link" href="{%url 'page_detail' page.id%}">Detalle</a> |
+                <a class="card-link" href="{%url 'page_update' page.id%}">Actualizar</a> |
+                <a class="card-link" href="{%url 'page_delete' page.id%}">Borrar</a> 
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+</center>
+<div class="container text-center">
+    <a class="btn btn-primary btn-sm" href="{% url 'page_create' %}">Agregar Page</a>
 </div>
 
-
-
-{% endblock %}
+{% endblock  %}

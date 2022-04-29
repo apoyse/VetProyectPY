@@ -32,3 +32,4 @@ class UsuarioEditForm(UserCreationForm):
 class AvatarFormulario(forms.Form):
 
     imagen = forms.ImageField()
+
