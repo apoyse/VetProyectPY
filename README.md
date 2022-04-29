@@ -1,7 +1,7 @@
 # Projecto Coder Veterinaria
 
 Este es un proyecto realizado en el curso de python de Coderhouse.
-Es una pagina web de una veterinaria que se pueden cargar datos, mostrarlos y buscarlos.
+Es una pagina web de una veterinaria que se pueden cargar datos, mostrarlos y buscarlos. Tiene una aplicacion para usuarios y tiene otra para mensajes directos entre usuarios.
 
 Para usarlo:
 1. Tenes que tener instalado python y django.
