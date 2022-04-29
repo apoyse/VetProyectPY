@@ -17,7 +17,8 @@ https://www.youtube.com/watch?v=o7eZgQRa9ZM
 
 
 Asi es como se ve la pagina de inicio:
-![image](https://user-images.githubusercontent.com/99926988/160720382-b310be34-7966-4d2d-8083-e0638efbbc3f.png)
+![image](https://user-images.githubusercontent.com/99926988/165971004-26fa7f07-1b94-40c6-a6a5-c3d31cc853cc.png)
+
 
 
 
