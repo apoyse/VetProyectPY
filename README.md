@@ -11,6 +11,11 @@ Para usarlo:
 5. Ya la podes usar la pagina.
 
 
+Video explicando el proyecto subio a youtube:
+
+https://www.youtube.com/watch?v=o7eZgQRa9ZM
+
+
 Asi es como se ve la pagina de inicio:
 ![image](https://user-images.githubusercontent.com/99926988/160720382-b310be34-7966-4d2d-8083-e0638efbbc3f.png)
 
