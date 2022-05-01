@@ -1,12 +1,11 @@
-from django.shortcuts import render , redirect , get_object_or_404
+from django.shortcuts import render , redirect
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import login , authenticate 
 from django.contrib.auth.decorators import login_required
 from usuario.models import *
 from usuario.forms import *
-from django.views.generic import ListView , View
+
 def login_request(request):
 
     if request.method == 'POST':
