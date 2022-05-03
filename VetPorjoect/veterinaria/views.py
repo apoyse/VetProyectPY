@@ -1,6 +1,6 @@
 
-from django.shortcuts import render, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse,get_object_or_404,render
+from django.urls import reverse
 from veterinaria.models import *
 from veterinaria.fomrs import *
 
@@ -13,7 +13,6 @@ from django.views.generic import DetailView, DeleteView, UpdateView, CreateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
 
 from usuario.views import *
 
@@ -41,7 +40,7 @@ def about(request):
 
 @login_required
 def empleados(request ):
-    imagen = avatar(request)
+    imagen1 = avatar(request)
     titulo = 'Empleados'
     empleados= Empleados.objects.all()
     if request.method == 'POST':
@@ -54,7 +53,8 @@ def empleados(request ):
             data['dni'],
             data['telefono'],
             data['cargo'],
-            data['email']
+            data['email'],
+            data['imagen']
             )
         
             empleado.save()
@@ -63,14 +63,13 @@ def empleados(request ):
             contx = {
             'formulario':formulario,
             'empleados':empleados ,
-            'imagen':imagen
             }
             return render(request, 'veterinaria/empleados.html', contx)
             
     else:
         formulario = EmpleadosFormulario()
 
-        return render(request, 'veterinaria/empleados.html', {'titulo':titulo,'formulario':formulario,'empleados':empleados , 'imagen':imagen})
+        return render(request, 'veterinaria/empleados.html', {'titulo':titulo,'formulario':formulario,'empleados':empleados     })
 
 @login_required
 def pacientes(request):
@@ -230,8 +229,7 @@ def buscarProducto(request):
     print(data)         #chequeo la data que me llega
     if data:
         try:
-            producto = Productos.objects.filter(id__icontains=data)
-            print(producto)
+            producto = Productos.objects.filter(id__icontains=data)       
             return render (request, 'veterinaria/buscar/buscarProducto.html', {'producto':producto[0], "id":data ,'imagen':imagen})
 
         except Exception as exc:
@@ -314,3 +312,71 @@ class PageDelete(LoginRequiredMixin,DeleteView):
     success_url = "/pages"
 
     # return render (request, 'veterinaria/pages.html', contexto)
+
+
+
+
+
+
+# posts
+class Postview(ListView):
+    model=Post
+    template_name='veterinaria/posts/post-list.html'
+    
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'titulo':'Lista de Posts',
+            'imagen': avatar(self.request)
+        })
+        return context 
+class ListarPosts(DetailView):
+    model=Post
+    template_name='veterinaria/posts/posts.html'
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto.update({
+            'imagen':avatar(self.request),
+        })
+        return contexto
+
+
+
+class CrearPosts(LoginRequiredMixin,CreateView):
+    model=Post
+    form_class=PostForm
+    template_name='veterinaria/posts/crea-post.html'
+     
+class EditPost(LoginRequiredMixin,UpdateView):
+
+    model = Post
+    form_class= PostForm
+    template_name="veterinaria/posts/editPost.html"
+    
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto.update({
+            'tipo_template': 'Editar' 
+        })
+        return contexto
+
+class BorrarPost(LoginRequiredMixin,DeleteView):
+    model=Post
+    template_name="veterinaria/posts/borraPost.html"
+    
+    def get_success_url(self):
+        return reverse('posts')
+
+class CrearComentario(LoginRequiredMixin,CreateView):
+    model=Comentario
+    form_class=ComentForm
+    template_name='veterinaria/posts/comentario.html'
+   
+
+    def form_valid(self,form):        
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+

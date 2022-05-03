@@ -32,11 +32,18 @@ urlpatterns = [
 
     path('pages/', Pagina.as_view(), name='pages'),
     path('pages/create/', PageCrear.as_view(), name='page_create'),
-    path("pages/detalle/<pk>/", PageDetail.as_view(), name="page_detail"),
+    path("pages/<pk>/", PageDetail.as_view(), name="page_detail"),
     path("pages/editar/<pk>/", PageUpdate.as_view(), name="page_update"),
     path("pages/borrar/<pk>/", PageDelete.as_view(), name="page_delete"),
-    path('/notemplate' , no_template, name='notemplate'),
+    path('notemplate/' , no_template, name='notemplate'),
 
+    path('posts/',Postview.as_view(),name='posts'),
+    path('post/<int:pk>',ListarPosts.as_view(),name='post_detalle'),
+    path('creaPost/',CrearPosts.as_view(),name='crear_post'),
+    path('post/mod/<int:pk>/',EditPost.as_view(),name='edit_post'),
+    path('post/<int:pk>/borrar',BorrarPost.as_view(),name='delete_post'),
+    path('post/<int:pk>/comentaPost/',CrearComentario.as_view(),name='comenta_post'),
+    # path('like/<int:pk>',LikeView,name='like-post'),
     path('account/', include('usuario.urls')),
 
     path('messages/', include('direct.urls')),

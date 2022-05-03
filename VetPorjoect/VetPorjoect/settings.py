@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'veterinaria',
     'usuario',
     'direct',
+    'ckeditor',
    
 ]
 

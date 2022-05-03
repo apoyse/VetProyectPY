@@ -1,0 +1,70 @@
+{% extends "veterinaria/padre.html" %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="entry-content">
+
+    <article class="container">
+
+      <center><h1 class="entry-title"> {{post.titulo|safe}}</h1></center>
+      
+      <small>Por: {{post.autor.username}}</small>
+      
+      <br/>
+
+      <div class="row">
+
+        <div class="container">
+
+          <p>{{post.contenido|safe}}</p>
+
+        </div>
+
+      </div>
+      {% if request.user.is_authenticated %}
+      {% if user.username == post.autor.username %}
+      <ul style="list-style-type: '';">
+        <li><small> <a href="{% url 'edit_post' post.pk %}" class = 'btn btn-primary'> Editar</a></small><small> <a class= "btn btn-primary"href="{% url 'delete_post' post.pk %}"> Borrar</a></small></li>      
+      </ul>
+      
+      {% endif %}
+      
+      
+      {% endif %}
+    </article>
+
+
+
+
+    <div class="row">
+      <div class="container">
+
+        {% if not post.comentarios.all %}
+
+        No hay comentarios, comenta primero. <a href="{% url 'comenta_post' post.pk %}"> Agregar Comentario </a>
+
+        {% else %}
+
+        {% for comentario in post.comentarios.all %}
+
+        <small>{{comentario.autor}} - {{comentario.fecha_publicacion}}</small>
+        <br />
+        {{comentario.contenido}}
+        <br />
+        {% endfor %}
+        <br />
+
+        
+        {% endif %}
+
+
+      </div>
+    </div>
+  </div>
+</div>
+<br />
+
+
+{% endblock %}

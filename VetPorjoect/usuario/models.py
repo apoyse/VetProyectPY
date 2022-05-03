@@ -8,4 +8,3 @@ class Avatar(models.Model):
         return f"{self.user.username} {self.imagen}" 
 
 
-# Create your models here.

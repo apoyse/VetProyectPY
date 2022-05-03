@@ -1,0 +1,23 @@
+{% extends 'veterinaria/padre.html' %}
+
+{% block content %}
+
+<div CLASS="container">
+
+    <div class="form-group">
+
+        <form method="POST">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.as_p}}
+
+            <button class="btn btn-secondary">Modificar</button>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,7 +1,8 @@
-import email
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from veterinaria.models import *
 class EmpleadosFormulario(forms.Form):
     nombre = forms.CharField(max_length=50)
     apellido = forms.CharField(max_length=50)
@@ -9,6 +10,7 @@ class EmpleadosFormulario(forms.Form):
     telefono = forms.IntegerField()
     cargo = forms.CharField(max_length=50)
     email = forms.EmailField(max_length=254)
+    imagen = forms.ImageField()
 
     
 class PacientesFormulario(forms.Form):
@@ -35,32 +37,26 @@ class ContactoFormulario(forms.Form):
     mensaje = forms.CharField(max_length=300)
 
 
-# class UserRegisterForm(UserCreationForm):
-#     email = forms.EmailField()
-#     password1 = forms.CharField(widget=forms.PasswordInput, label='Contraseña 1')
-#     password2 = forms.CharField(widget=forms.PasswordInput , label='Contraseña 2')
+class PostForm(forms.ModelForm):
+    
+    class Meta:
+        model= Post
+        fields=('titulo','autor','contenido')
 
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password1', 'password2']
-#         help_text = {k : '' for k in fields}
-
-# class UsuarioEditForm(UserCreationForm):
-
-#     email = forms.EmailField()
-#     password1 = forms.CharField(label='Contrasenia 1', widget=forms.PasswordInput)
-#     password2 = forms.CharField(label='Contrasenia 2', widget=forms.PasswordInput)
-
-#     first_name = forms.CharField(label="Nombre")
-#     last_name = forms.CharField(label="Apellido")
-
-#     class Meta:
-#         model = User
-#         fields = ['first_name','last_name','email', 'password1', 'password2']
-#         help_text = { k: "" for k in fields}
+        widgets={
+            'titulo':forms.TextInput(attrs={'class':'form-control'}),
+            'autor':forms.TextInput(attrs={'class':'form-control','value':'','id':'autor','type':'hidden'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control'}),
+          }
 
 
+class ComentForm(forms.ModelForm):
+    
+    class Meta:
+        model=Comentario
+        fields=('autor','contenido')
 
-# class AvatarFormulario(forms.Form):
-
-#     imagen = forms.ImageField()
+        widgets={
+            'autor':forms.TextInput(attrs={'class':'form-control','value':'','id':'autor','type':'hidden'}),
+            'contenido':forms.Textarea(attrs={'class':'form-control'}),
+        }

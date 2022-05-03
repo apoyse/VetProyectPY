@@ -1,0 +1,42 @@
+{% extends "veterinaria/padre.html"%}
+{% block main_content %}
+
+
+<center>
+  {% for post in object_list %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{post.titulo|safe}}</h5>
+              <h5 class="card-text"> {{post.contenido|safe|striptags|slice:':80'}}...</h5>
+              <p class="card-text">Por: {{post.autor}}</p>
+              <a href="{% url 'post_detalle' post.pk %}" class="btn btn-primary">Ver más</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <br/>
+</div> 
+
+
+
+  {% endfor %}
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body"> 
+              <h4>Queres crear un post?</h4>
+              <a href="{% url 'crear_post' %}" class=" btn btn-primary">Click aqui</a>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>   
+<br><br><br>
+</center>  
+  {% endblock %}

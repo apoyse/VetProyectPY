@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import login , authenticate 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from usuario.models import *
 from usuario.forms import *
 
@@ -102,7 +102,9 @@ def actualizar_usuario(request):
         return render(request,  "user/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
 
 
-@login_required()
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def cargar_imagen(request):
 
     
@@ -135,7 +137,7 @@ def cargar_imagen(request):
 
 
 
-
+@login_required
 def avatar(request):
 
     if request.user.username:
@@ -154,5 +156,6 @@ def get_user_profile(request,username):
     usuario = request.user
     
     return render(request, 'user/perfil.html', { 'usuario':usuario, "imagen":avatar(request)})
+
 
 # Create your views here.

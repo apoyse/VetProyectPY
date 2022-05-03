@@ -1,0 +1,29 @@
+{% extends 'veterinaria/padre.html' %}
+{% block content %}
+
+<div CLASS="container">
+
+  <div class="form-group">
+
+      <form method="POST">
+          {% csrf_token %}
+         
+          {{form.as_p}}
+
+          <button class="btn btn-secondary">Publicar</button>
+
+          <script>
+          var autor_id="{{ user.username }}";
+            
+          document.getElementById("autor").value=autor_id;
+    
+          </script>
+
+      </form>
+
+
+  </div>
+
+</div>
+
+{% endblock %}

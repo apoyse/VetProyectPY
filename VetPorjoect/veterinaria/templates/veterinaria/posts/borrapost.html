@@ -1,0 +1,28 @@
+{% extends 'veterinaria/padre.html' %}
+
+{% block content %}
+
+
+<div CLASS="container">
+
+    <h1> Borrar post {{post.titulo}} </h1>
+
+    <div class="form-group">
+
+        <form method="POST">
+            {% csrf_token %}
+                       {{form.as_p}}
+            
+            <h3> Seguro que desea borrar esta entrada? </h3>
+
+            <button class="btn btn-secondary">Borrar</button>
+
+   
+        </form>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
