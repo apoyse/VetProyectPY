@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render , redirect
 
 from django.contrib.auth.forms import AuthenticationForm 
@@ -101,11 +102,48 @@ def actualizar_usuario(request):
         formulario = UsuarioEditForm(initial={"email": usuario.email})  
         return render(request,  "user/editar_usuario.html", {"form": formulario , 'imagen': imagen, 'titulo': titulo})
 
+@login_required()
+def cargar_imagen(request):
 
+    if request.user.username:
+        avatar = Avatar.objects.filter(user = request.user)
+        print(avatar)
+        if len(avatar) == 0:
+            if request.method == "POST":
+                
+                formulario = AvatarFormulario(request.POST,request.FILES)
+
+                if formulario.is_valid():
+
+                    usuario = request.user
+
+                    avatar = Avatar.objects.filter(user=usuario)
+
+                    if len(avatar) > 0:
+                        avatar = avatar[0]
+                        avatar.imagen = formulario.cleaned_data["imagen"]
+                        avatar.save()
+
+                    else:
+                        avatar = Avatar(user=usuario, imagen=formulario.cleaned_data["imagen"])
+                        avatar.save()
+                    
+                return redirect("index")
+            else:
+                
+                formulario = AvatarFormulario()
+                return render(request, "user/cargar_imagen.html", {"form": formulario , 'titulo': 'Cargar Imagen'})
+        else:
+            return HttpResponse("""
+            <h1>Ya tiene una imagen</h1>
+            <h2>Puede cambiarla solo con el admin</h2>
+            <a href="/">Volver</a>
+            
+            """)
 
 
 @user_passes_test(lambda u: u.is_superuser)
-def cargar_imagen(request):
+def cargar_imagen2(request):
 
     
 

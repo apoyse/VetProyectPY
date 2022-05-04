@@ -16,7 +16,8 @@ urlpatterns = [
     
     path("actualizar_perfil/", actualizar_usuario, name="EditarUsuario"),
 
-    path("cargar_imagen/", cargar_imagen, name="CargarImagen")
+    path("cargar_imagen/", cargar_imagen, name="CargarImagen"),
+    path("cambiar_imagen/", cargar_imagen2 , name="CargarImagen2")
 ]
 
   
